@@ -34,4 +34,3 @@ const server = new GraphQLServer({
 
 server.start(() => console.log('Server is running on http://localhost:4000'))
 
-/* "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjazEzNmp3N3hlNzlhMGIwOTZkcHplbWVvIiwiaWF0IjoxNTY5Njc1ODQ4LCJleHAiOjE1Njk2Nzk0NDh9.tJdNTd7qBjwIoG5IjBuGENOv8Bv0QkvUwmzZreYfdDM", */

@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var prisma_lib_1 = require("prisma-client-lib");
 var typeDefs = require("./prisma-schema").typeDefs;
-require('dotenv').config({ path: '.env.development' });
 
 var models = [
   {
@@ -21,6 +20,7 @@ var models = [
 exports.Prisma = prisma_lib_1.makePrismaClientClass({
   typeDefs,
   models,
-  endpoint: process.env.PRISMA_ENDPOINT
+  endpoint: `https://heku-server-9f1c37d39f.herokuapp.com/hekuprisma-service/dev`,
+  secret: `AbcdAbcd`
 });
 exports.prisma = new exports.Prisma();
