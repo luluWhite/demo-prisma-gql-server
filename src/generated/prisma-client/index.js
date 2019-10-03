@@ -21,6 +21,7 @@ exports.Prisma = prisma_lib_1.makePrismaClientClass({
   typeDefs,
   models,
   endpoint: `https://heku-server-9f1c37d39f.herokuapp.com/hekuprisma-service/dev`,
+  debug: false,
   secret: `AbcdAbcd`
 });
 exports.prisma = new exports.Prisma();
