@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const { GetUserById } = require('../utiles/getUserJwt');
+const { GetUserById, SECRET_LOCAL } = require('../utiles/getUserJwt');
 
 const Mutation = {
     createDraft(parent, { title, content }, context) {
@@ -31,10 +31,16 @@ const Mutation = {
             }
         }, info);
     },
-    updateCourse: (root, { data, where }, ctx, info) => {
+    updateCourse: (root, { data: { id, name, description }, where }, ctx, info) => {
         const userId = GetUserById(ctx);
         const { prisma } = ctx;
-        // console.log('41 -- prisma: ', prisma)
+        const data = {};
+        if (name) {
+            data.name = name
+        }
+        if (description) {
+            data.description = description
+        }
         return prisma.updateCourse({ data, where })
     },
     deleteCourse: (root, { where }, ctx, info) => {
@@ -57,7 +63,7 @@ const Mutation = {
          * use `{id}` ==> set only return id.
          */
 
-        const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET, { expiresIn: '3h' });
+        const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET ? process.env.APP_SECRET : SECRET_LOCAL, { expiresIn: '3h' });
 
         return {
             token,
@@ -73,7 +79,7 @@ const Mutation = {
         if (!isMatched) {
             throw new Error('Invalid Password');
         }
-        const token = jwt.sign({ userId: foundUser.id }, process.env.APP_SECRET, { expiresIn: '3h' });
+        const token = jwt.sign({ userId: foundUser.id }, process.env.APP_SECRET ? process.env.APP_SECRET : SECRET_LOCAL, { expiresIn: '3h' });
 
         return {
             token,
